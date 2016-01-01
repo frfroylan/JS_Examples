@@ -1,0 +1,31 @@
+<html>
+<head>
+	
+</head>	
+<body>
+	
+</body>
+<script>
+	var sentence = "I am estatic to go hiking in the winter time";
+
+
+	var longestWord = function(sent){
+		var bucket = sent.split(" ");
+		var num = 0;
+		var longest = "";
+		for(var x = 0; x < bucket.length; x ++){
+
+			if(bucket[x].length > num){
+				num = bucket[x].length;
+				longest = bucket[x];
+			}
+		}
+
+		return "Longest word is: " + longest + " with " + num + " characters.";
+	}
+
+	var word = longestWord(sentence);
+	console.log(word)
+
+</script>
+</html>

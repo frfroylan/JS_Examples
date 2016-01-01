@@ -1,0 +1,47 @@
+<html>
+<head>
+	
+</head>	
+<body>
+
+	
+</body>
+<script>
+	/*Using the JavaScript language, have the function SimpleMode(arr) take the array of numbers stored in arr and return the number that appears most frequently (the mode). For example: if arr contains [10, 4, 5, 2, 4] the output should be 4. If there is more than one mode return the one that appeared in the array first (ie. [5, 10, 10, 6, 5] should return 5 because it appeared first). If there is no mode return -1. The array will not be empty. */
+
+	var SimpleMode = function(arr){
+		
+		var currentVal;
+		var mostVal;
+		var mostCount = 0;
+		var nextCount = 0;
+
+		for(var y = 0; y < arr.length;y++){
+			currentVal = arr[y];
+
+			for(var x = 0; x < arr.length; x ++){
+				if(arr[x] === currentVal){
+					nextCount++;
+				}
+			}
+
+			if(nextCount > mostCount){
+				mostVal = currentVal;
+				mostCount = nextCount;
+				nextCount = 0;
+			}
+			else {
+				nextCount = 0;
+			}
+		}
+
+		console.log(mostVal);
+		
+
+	}
+
+	var arr = [3,4,1,6,10,10];
+	console.log(SimpleMode(arr));
+
+</script>
+</html>

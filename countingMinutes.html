@@ -1,0 +1,237 @@
+<html>
+<head>
+	
+</head>	
+<body>
+
+	
+</body>
+<script>
+	/*Using the JavaScript language, have the function CountingMinutes(str) take the str parameter being passed which will be two times (each properly formatted with a colon and am or pm) separated by a hyphen and return the total number of minutes between the two times. The time will be in a 12 hour clock format. For example: if str is 9:00am-10:00am then the output should be 60. If str is 1:00pm-11:00am the output should be 1320. */
+
+	var CountingMinutes = function(str){
+		//Setup 
+		var arrTimes = str.split("");
+		var firstColon = false;
+		var secColon = false;
+		var hyphen = false;
+		var totMins = 0;
+		var minInADay = 60 * 24;
+
+		//First Hours data
+		var firstHour = [];
+		var firstHourDigits = 0;
+		var firstMins = [];
+		var firstHourMins = 0;
+		var firstHourClock;
+
+		//Second hours data
+		var secHour = [];
+		var secHourDigits = 0;
+		var secMins = [];
+		var secHourMins = 0;
+		var secHourClock;
+
+		//Separating user input into Hours/Minutes/Time of Day
+		for(var x = 0; x < arrTimes.length; x++){
+			//Grab first Hour
+			if(arrTimes[x] != " " && arrTimes[x] != ":" && firstColon === false && firstHourDigits < 3){
+				firstHour[firstHourDigits] = arrTimes[x];
+				firstHourDigits++;
+			}
+			//Grab first Minutes
+			else if( arrTimes[x] === ":" && firstColon === false && firstHourMins < 3){
+				firstColon = true;
+			}
+			else if(arrTimes[x] != " " && arrTimes[x] != "-" && firstColon === true && hyphen === false && arrTimes[x] != "a" && arrTimes[x] != "m" && arrTimes[x] != "p"){
+				firstMins[firstHourMins] = arrTimes[x];
+				firstHourMins++;
+			}
+			//Get first hour clock (am/pm)
+			else if((arrTimes[x] === "a" || arrTimes[x] === "p" ) && x < 6){
+
+				if(arrTimes[x] === "a"){
+					firstHourClock = arrTimes[x];
+				}
+				else if(arrTimes[x] === "p"){
+					firstHourClock = arrTimes[x];
+				}
+			}
+			//Hyphen
+			else if(arrTimes[x] === "-"){
+				hyphen = true;
+			}
+			//Grab second Hour
+			else if(arrTimes[x] != " " && arrTimes[x] != ":" && hyphen === true && secColon === false && secHourDigits < 2){
+				secHour[secHourDigits] = arrTimes[x];
+				secHourDigits++;
+			}
+			//Grab second hour Minutes
+			else if(arrTimes[x] === ":" && firstColon === true && firstHourMins < 3){
+				secColon = true;
+			}
+			else if(arrTimes[x] != " " && arrTimes[x] != "-" && secColon === true &&  arrTimes[x] != "a" && arrTimes[x] != "m" && arrTimes[x] != "p"){
+				secMins[secHourMins] = arrTimes[x];
+				secHourMins++;
+			}
+			//Get second am/pm
+			if( (hyphen === true && x > 6) && (arrTimes[x] === "a" || arrTimes[x] === "p") ){
+
+				if(arrTimes[x] === "a"){
+					secHourClock = arrTimes[x];
+				}
+				else if(arrTimes[x] === "p"){
+					secHourClock = arrTimes[x];
+				}
+			}
+		}
+
+		//Converting user input into numbers
+		var firstHour = parseInt(firstHour.join(""));
+		var secHour = parseInt(secHour.join(""));
+		var firstMins = parseInt(firstMins.join(""));
+		var secMins = parseInt(secMins.join(""));
+
+		/** Minute Calculation **/
+		if(firstHour < secHour){
+			//If am/am or pm/pm
+			if(firstHourClock === secHourClock){
+				if(secMins > firstMins){
+					totMins = totMins + secMins - firstMins;
+					totMins = totMins + (60 * (secHour - firstHour));
+				}
+				else if(secMins < firstMins){
+					totMins = totMins + (60 - firstMins);
+					totMins = totMins + secMins;
+					totMins = totMins + (60 * ((secHour - 1) - firstHour));
+				}
+				else if(secMins === firstMins){
+					if((secHour - 1) === firstHour){
+						totMins = 60;
+					}
+					else {
+						totMins = totMins + (60 * (secHour - firstHour));
+					}
+				}
+			}
+			//If am/pm or pm/am
+			else if( firstHourClock != secHourClock){
+				if(firstHourClock === "p" && firstHour != 12){
+					firstHour = firstHour + 12;				
+				}
+				else if(secHourClock === "p" && secHour != 12){
+					secHour = secHour + 12;
+				}
+				if(secMins > firstMins){
+					totMins = totMins + secMins - firstMins;
+					totMins = totMins + (60 * (secHour - firstHour));
+				}
+				else if(secMins < firstMins){
+					totMins = totMins + (60 - firstMins);
+					totMins = totMins + secMins;
+					totMins = totMins + (60 * ((secHour - 1) - firstHour));
+				}
+				else if(secMins === firstMins){
+					if((secHour - 1) === firstHour){
+						totMins = 60;
+					}
+					else {
+						if(firstHour > secHour){
+							totMins = minInADay - (60 * (firstHour - secHour));
+						}
+						else {
+							totMins = minInADay - (60 * (secHour - firstHour));
+						}
+					}
+				}
+			}
+		}
+
+		//DONE
+		else if(firstHour > secHour){
+			//If am/am or pm/pm
+			if(firstHourClock === secHourClock){
+				if(secMins > firstMins){
+					totMins = totMins + secMins - firstMins;
+					totMins = totMins +( minInADay - (60 * (firstHour - secHour)));
+				}
+				else if(secMins < firstMins){
+					totMins = totMins + secMins + firstMins;
+					totMins = totMins +( minInADay - (60 * (firstHour - secHour)));
+				}
+				else if (secMins === firstMins){
+					if((firstHour - 1) === secHour){
+						totMins = minInADay - 60;
+					}
+					else {
+						totMins = minInADay - (60 * (firstHour - secHour));
+					}
+				}
+			}
+			//if am/pm or pm/am
+			else if(firstHourClock != secHourClock){
+				if(firstHourClock === "p" && firstHour != 12){
+					firstHour = firstHour + 12;
+				}
+				else if(secHourClock === "p" && secHour != 12){
+					secHour = secHour + 12;
+				}
+
+				if(secMins > firstMins){
+					totMins = totMins + secMins - firstMins;
+					totMins = totMins +( minInADay - (60 * (firstHour - secHour)));
+				}
+				else if(secMins < firstMins){
+					totMins = totMins + secMins + firstMins;
+					totMins = totMins +( minInADay - (60 * (firstHour - secHour)));
+				}
+				else if (secMins === firstMins){
+					if((firstHour - 1) === secHour){
+						totMins = minInADay - 60;
+					}
+					else {
+						totMins = -1 *((firstHour - secHour) * 60);
+					}
+				}
+			}
+		}
+
+		else if (firstHour === secHour){
+
+			if(firstHourClock === secHourClock){
+				if(secMins > firstMins){
+					totMins = secMins - firstMins;
+				}
+				else if(secMins < firstMins){
+					totMins = minInADay - (firstMins - secMins);
+				}
+				else if(secMins === firstMins){
+					console.log("No minutes in between times.");
+				}
+			}
+			//If am/am or pm/pm
+			else if(firstHourClock != secHourClock){
+				if(firstHourClock === "p"){
+					firstHour = firstHour + 12;
+				}
+				else if(secHourClock === "p"){
+					secHour = secHour + 12;
+				}
+				if(secMins > firstMins){
+					totMins = 60 * 12 + (secMins - firstMins);
+				}
+				else if(secMins < firstMins){
+					totMins = 60* 12 - (firstMins - secMins);
+				}
+				else if(secMins === firstMins){
+					totMins = 60 * 12;
+				}
+			}
+		}
+		console.log(totMins);
+	}
+
+	CountingMinutes("1:23am -1:08am");
+
+</script>
+</html>

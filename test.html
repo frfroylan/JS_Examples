@@ -1,0 +1,59 @@
+<html>
+<head>
+	
+</head>	
+<body>
+	
+</body>
+<script>
+	/*Using the JavaScript language, have the function MultiplicativePersistence(num) take the num parameter being passed which will always be a positive integer and return its multiplicative persistence which is the number of times you must multiply the digits in num until you reach a single digit.
+
+	Example: 
+		The multiplicative persistence of 39 is 3, because it takes three steps to reduce 39 to a single digit: 39 → 27 → 14 → 4. Also, 39 is the smallest number of multiplicative persistence 3.
+	*/
+
+	var MultiplicativePersistence = function(num){	
+		var iterations = 0;
+		stringToNumArray = function(str){
+			var number = [ ];
+			var splitNum = str.split("");
+
+			for(var x = 0; x < splitNum.length; x ++){
+				number[x] = parseInt(splitNum[x]);
+			}
+			return number;
+		},
+
+		multiplyNumArray = function(nums){
+			var eval;
+
+			loop:
+			for(var i = 0; i < nums.length - 1; nums++){
+				if(num.length === 1){
+					return iterations;
+					break loop;
+				}
+				else{
+					eval = nums[i] * nums[i + 1];
+					iterations++;
+				}
+
+				console.log(eval);
+			}
+
+			var newNumString = eval.toString();
+			stringToNumArray(newNumString);
+		}
+
+		var str = num.toString();
+		var val = stringToNumArray(str); 
+		multiplyNumArray(val);
+
+		/*HAVE A CHECK IN MULTPLY THAT CHECKS FOR SINGLE DIGIT AT WHICH POINT IT RETURNS THE COUNT OF ITERATIONS. ALSO NEED TO HAVE A COUNT FOR ITERATIONS IN MULIPLYNUMARRAY*/
+		
+	}
+
+	MultiplicativePersistence(39);
+	
+</script>
+</html>

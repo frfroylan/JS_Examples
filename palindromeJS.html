@@ -1,0 +1,48 @@
+<html>
+<head>
+	
+</head>	
+<body>
+	
+</body>
+<script>
+	var palindrome1 = "hello";
+	var palindrome2 = "aabaaaabaaaabaaaabaa";
+	var palindrome3 = 32;
+
+
+	var isPalindrome = function(word){
+		if( (typeof word) != "string"){
+			console.log("not a valid word");
+			return false;
+		}
+		else{
+			var a = [];
+			a = word.split("");
+			var trail = a.length - 1;
+			var count = 0;
+
+			for(var start = 0; start < a.length; start++){
+				if(a[start] === a[trail]){
+					count += 1;
+				}
+				trail -= 1;
+			}
+
+			if(count === a.length){
+				return true;
+			}
+		}	
+	}
+
+	var ispali = isPalindrome(palindrome2);
+
+	if(ispali == true){
+		console.log("This word is a palindrome");
+	}
+	else{
+		console.log("This word is not a palindrome");
+	}
+
+</script>
+</html>

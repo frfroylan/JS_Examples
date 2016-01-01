@@ -1,0 +1,51 @@
+<html>
+<head>
+	
+</head>	
+<body>
+	
+</body>
+<script>
+	/*Replace every letter in the string with the letter following it in the alphabet (ie. c becomes d, z becomes a). Then capitalize every vowel in this new string (a, e, i, o, u) and finally return this modified string.  */
+
+	var sentence = "Froylan Terriquez";
+
+	var replace = function(val){
+		var sent = val.split("");
+		var alphabet = "a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p,q,r,s,t,u,v,w,x,y,z".split(",");
+		var vowel = "a,e,i,o,u".split(",");
+
+		//Converts the chars to the next letter in the alphabet
+		for(var x = 0; x < sent.length; x++){
+			innerloop:
+			for(var y = 0; y < alphabet.length -1; y++){
+				if(sent[x] === alphabet[y] || sent[x] === alphabet[y].toUpperCase() ){
+					sent[x] = alphabet[y+1];
+					break innerloop;
+				}
+			}
+		}
+
+		//Checks for vowels and captalizes them
+		for(var v = 0; v < sent.length; v++){
+			innerloop:
+			for(var u = 0; u < vowel.length; u++){
+				if(sent[v] === vowel[u]){
+					sent[v] = sent[v].toUpperCase();
+					break innerloop;
+				}
+			}
+		}
+
+		var str = sent.join(""); //Joins an array of chars into a string
+
+		return str;
+	}
+
+
+	var newSent = replace(sentence);
+	console.log(newSent);
+
+
+</script>
+</html>
