@@ -12,25 +12,36 @@
 
 
 	var isPalindrome = function(word){
-		if( (typeof word) != "string"){
-			console.log("not a valid word");
+		if( (typeof word) != "wording"){
 			return false;
 		}
 		else{
 			var a = [];
+			word = word.toLowerCase();
+			word = word.replace(/\s/g, "");//Removes spaces
+			word = word.replace(/\,/g, ""); //Removes ,
+			word = word.replace(/\./g, "");//Removes .
+			word = word.replace(/\_/g, "");//Removes _
+			word = word.replace(/\-/g, ""); //Removes -
+			word = word.replace(/\:/g, "");//Removes :
+			word = word.replace(/\//g, "");//Removes /
+			word = word.replace(/\\/g, "");//Removes \
+			word = word.replace(/\(/g, "");//Removes (
+			word = word.replace(/\)/g, "");//Removes )
 			a = word.split("");
 			var trail = a.length - 1;
 			var count = 0;
-
 			for(var start = 0; start < a.length; start++){
 				if(a[start] === a[trail]){
 					count += 1;
 				}
 				trail -= 1;
 			}
-
 			if(count === a.length){
 				return true;
+			}
+			else{
+				return false;
 			}
 		}	
 	}
